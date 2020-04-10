@@ -7,6 +7,8 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+// mongodb+srv://ddouglas:<password>@cluster0-gygeo.mongodb.net/test?retryWrites=true&w=majority
+
 var app = express();
 
 // view engine setup
