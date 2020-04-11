@@ -6,8 +6,8 @@ function Navigation(){
     return(
       <div className="Navbar">
         <header>
-          <Navbar expand="lg" variant="dark" bg="dark">
-            <Navbar.Brand href="#home">DSPro Search <sub>Try it today!</sub></Navbar.Brand>
+          <Navbar expand="lg" bg="light">
+            <Navbar.Brand href="#home">DSPro Shop</Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                   <Nav className="mr-auto">
