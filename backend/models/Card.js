@@ -30,6 +30,7 @@ const CardSchema = new Schema({
     type: String,
     require: true
   },
+  image: [{ image: String, image_small: String }],
   views: {
     type: Number
   }
