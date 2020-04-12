@@ -1,0 +1,27 @@
+.row {
+    display: flex;
+    justify-content: space-evenly;
+    margin: auto;
+    
+    .card-individual {
+        border: 1px solid rgba(0,0,0,.125);
+        border-radius: 4px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        width: 320px;
+
+        .card-image {
+            padding-bottom: 5px;        
+            .image {
+                height: 400px;
+                width: 280px;
+            }
+        }
+    }
+
+    .item-content {
+        margin-top: 70px;
+    }
+}
