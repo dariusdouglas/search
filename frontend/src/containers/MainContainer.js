@@ -3,7 +3,7 @@ import Cards from '../components/Cards';
 import Card from '../components/Card';
 import logo from '../assets/background-logo.jpg';
 import '../styles/MainContainer.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 function MainContainer() {
   return (

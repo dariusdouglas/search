@@ -3,7 +3,7 @@ import './App.css';
 import MainContainer from './containers/MainContainer';
 import Navigation from './containers/Navigation';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
