@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Cart from './Cart';
 import '../styles/Card.scss';
 
 function Card() {
@@ -41,6 +42,7 @@ function Card() {
         )}
 
         <div>
+          <Cart />
           Add to cart button here... Probably should be it's own component and not in the card.js
           file
         </div>
