@@ -10,7 +10,6 @@ function Card() {
   useEffect(() => {
     async function FetchData() {
       try {
-        console.log(name);
         const res = await fetch(`http://localhost:5000/cards/${name}`);
         const card = await res.json();
         getCard(card);
@@ -20,32 +19,42 @@ function Card() {
       }
     }
     FetchData();
-  }, []);
+  }, [name, card]);
 
-  return (
-    <div class="row">
-      {card.images ? (
-        <>
-          <div class="card-individual">
-            <div class="card-image">
-              <img class="image" src={card.images.image} />
+  try {
+    return (
+      <div className="row">
+        {card && card.image ? (
+          <>
+            <div className="card-individual">
+              <div className="card-image">
+                <img className="image" src={card.images.image} />
+              </div>
             </div>
-          </div>
-        </>
-      ) : (
-        <p>Loading...</p>
-      )}
 
-      <div class="item-content">
-        <p>Name: {card.name}</p>
-        <p>Type: {card.type}</p>
-        <p>Race: {card.race}</p>
-        <p>Archetype: {card.archetype}</p>
-        <p>Attack - {card.atk}</p>
-        <p>Def - {card.def}</p>
+            <div className="item-content">
+              <p> Item Description Here</p>
+            </div>
+          </>
+        ) : (
+          <p>Loading...</p>
+        )}
+
+        <div>
+          Add to cart button here... Probably should be it's own component and not in the card.js
+          file
+        </div>
       </div>
-    </div>
-  );
+    );
+  } catch (err) {
+    return (
+      <div>
+        {console.warn(err)}
+        {console.warn('heeeeeere')}
+        <p>Error in console</p>
+      </div>
+    );
+  }
 }
 
 export default Card;

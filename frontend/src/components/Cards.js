@@ -12,10 +12,14 @@ const loadCards = async () =>
     .then(res => res.json());
 
 function Cards() {
+  function handleButtonClick(name) {
+    window.location.assign(`/card/${name}`);
+  }
+
   const { data, error, isLoading } = useAsync({ promiseFn: loadCards }); //hooks
   if (isLoading) return 'Loading...';
   if (error) return `Something went wrong: ${error.message}`;
-  if (data)
+  if (data) {
     // The rendered component
     return (
       <div className="container">
@@ -36,12 +40,15 @@ function Cards() {
                 <ListGroupItem>Level - {pokemon.level}</ListGroupItem>
                 <ListGroupItem>Def - {pokemon.def}</ListGroupItem>
               </ListGroup>
-              <Button variant="primary">Purchase</Button>
+              <Button onClick={() => handleButtonClick(`${pokemon.name}`)} variant="primary">
+                Purchase
+              </Button>
             </Card>
           </div>
         ))}
       </div>
     );
+  }
 }
 
 export default Cards;
