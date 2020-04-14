@@ -25,7 +25,7 @@ function Card() {
   try {
     return (
       <div className="row">
-        {card && card.image ? (
+        {card && card.images ? (
           <>
             <div className="card-individual">
               <div className="card-image">
@@ -42,7 +42,7 @@ function Card() {
         )}
 
         <div>
-          <Cart />
+          <Cart currentCardId={card._id} />
           Add to cart button here... Probably should be it's own component and not in the card.js
           file
         </div>

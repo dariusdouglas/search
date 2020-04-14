@@ -34,7 +34,11 @@ function Cards() {
         <div key={card._id} className="cards-grid">
           <Card style={{ width: '20rem' }}>
             <Card.Header as="h5">
-              <Card.Img src={card.images.image} alt="Card Image" />
+              {card.images ? (
+                <Card.Img src={card.images.image} alt="Card Image" />
+              ) : (
+                <p> No Image Available</p>
+              )}
             </Card.Header>
             <Card.Body>
               <Card.Text>Type: {card.name}</Card.Text>
