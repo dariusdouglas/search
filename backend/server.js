@@ -3,12 +3,14 @@ const mongoose = require('mongoose');
 const config = require('config');
 const cors = require('cors');
 const cardRoutes = require('./routes/cards');
+const cartRoutes = require('./routes/cart');
 
 // connect to express
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/cards', cardRoutes);
+app.use('/cart', cartRoutes);
 
 // get mongoURI to connect to later
 const db = config.get('mongoURI');
