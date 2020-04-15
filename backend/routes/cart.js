@@ -7,6 +7,27 @@ router.get("/", async (req, res) => {
   res.json(cart);
 });
 
+//return quantity based on id
+router.get("/:id/quantity", async (req, res) => {
+  try {
+    const cart = await Cart.findOne({
+      _id: "5e96748c92fc6fb85183d2b4"
+    });
+
+    const cartItem = cart.item.find(element => {
+      return element.cardItemId === req.params.id;
+    });
+
+    if (cartItem) {
+      res.json(cartItem.quantity);
+    } else {
+      res.json(0);
+    }
+  } catch (err) {
+    res.send(err);
+  }
+});
+
 router.post("/", async (req, res) => {
   //used to post cart items to the database through postman
   //   const cartItem = new Cart({
