@@ -9,30 +9,34 @@ const initialState = {
 // add items to cart
 // subtract item from cart
 // delete item from cart
-function updateCartReducer(initialState, [id, quantity]) {
-  const currentAmountElement = document.querySelector('.counter');
-  let currentAmountValue = parseInt(currentAmountElement.value);
-  currentAmountValue += quantity;
-  return { ...initialState, currentAmount: currentAmountValue, saved: false };
+function updateCartReducer(state, action) {
+  console.log(action);
+
+  switch (action.type) {
+    case 'increment':
+      return { currentAmount: parseInt(state.currentAmount) + 1 };
+    case 'decrement':
+      return { currentAmount: parseInt(state.currentAmount) - 1 };
+    case 'initial':
+      return { currentAmount: parseInt(action.initial) };
+    default:
+      throw new Error();
+  }
 }
 
 function Cart(props) {
   const [state, dispatch] = useReducer(updateCartReducer, initialState);
 
-  const addItem = id => dispatch([id, 1]);
-  const subtractItem = id => dispatch([id, -1]);
-  const removeItem = id => dispatch([id, null]);
-
   // Mount
   useEffect(() => {
     async function fetchCart() {
       try {
-        const response = await fetch('http://localhost:5000/cards/');
+        const response = await fetch(`http://localhost:5000/cart/${props.currentCardId}/quantity`);
         let items = await response.json();
+        console.log('fetchCart -> items', items);
 
-        // getCart(items);
+        dispatch({ type: 'initial', initial: items });
       } catch (err) {
-        console.warn('fetchCart -> err', err);
         return;
       }
     }
@@ -69,15 +73,15 @@ function Cart(props) {
   return (
     <div className="add-to-cart-section">
       <div className="counter-section">
-        <button onClick={() => subtractItem(props.currentCardId, -1)} className="minus-button">
+        <button onClick={() => dispatch({ type: 'decrement' })} className="minus-button">
           -
         </button>
         <input className="counter" type="text" value={state.currentAmount} readOnly />
-        <button onClick={() => addItem(props.currentCardId, 1)} className="plus-button">
+        <button onClick={() => dispatch({ type: 'increment' })} className="plus-button">
           +
         </button>
       </div>
-      <button onClick={() => addItem(props.currentCardId, 1)} className="add-to-cart-button">
+      <button onClick={() => dispatch({ type: 'increment' })} className="add-to-cart-button">
         Add to cart
       </button>
     </div>

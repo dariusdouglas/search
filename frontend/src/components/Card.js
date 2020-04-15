@@ -42,7 +42,7 @@ function Card() {
         )}
 
         <div>
-          <Cart currentCardId={card._id} />
+          {card._id ? <Cart currentCardId={card._id} /> : <p> loading </p>}
           Add to cart button here... Probably should be it's own component and not in the card.js
           file
         </div>
