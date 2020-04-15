@@ -14,11 +14,11 @@ function updateCartReducer(state, action) {
 
   switch (action.type) {
     case 'increment':
-      return { currentAmount: parseInt(state.currentAmount) + 1 };
+      return { currentAmount: parseInt(state.currentAmount) + 1, updateValue: 1, saved: false };
     case 'decrement':
-      return { currentAmount: parseInt(state.currentAmount) - 1 };
+      return { currentAmount: parseInt(state.currentAmount) - 1, updateValue: -1, saved: false };
     case 'initial':
-      return { currentAmount: parseInt(action.initial) };
+      return { currentAmount: parseInt(action.initial), updateValue: 0, saved: true };
     default:
       throw new Error();
   }
@@ -50,25 +50,29 @@ function Cart(props) {
       console.log('in use effect');
       state.saved = true;
       console.log(state.saved);
+
+      const updateCart = async () => {
+        const location = window.location.hostname;
+        const settings = {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ cardItemId: props.currentCardId, quantity: state.updateValue })
+        };
+        try {
+          const fetchResponse = await fetch(`http://localhost:5000/cart/`, settings);
+          const data = await fetchResponse.json();
+          state.saved = true;
+          return data;
+        } catch (e) {
+          return e;
+        }
+      };
+      updateCart();
     }
-    // const updateCart = async () => {
-    //   setSaved(false);
-    //   fetch(`/cart/`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(cartItems)
-    //   })
-    //     .then(() => {
-    //       setSaved(true);
-    //     })
-    //     .catch(error => {
-    //       setSaved(false);
-    //     });
-    // };
-    // updateCart();
-  }, [state.saved]);
+  }, [state.currentAmount]);
 
   return (
     <div className="add-to-cart-section">

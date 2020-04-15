@@ -1,17 +1,17 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const Cart = require("../models/Cart");
+const Cart = require('../models/Cart');
 
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   const cart = await Cart.find({});
   res.json(cart);
 });
 
 //return quantity based on id
-router.get("/:id/quantity", async (req, res) => {
+router.get('/:id/quantity', async (req, res) => {
   try {
     const cart = await Cart.findOne({
-      _id: "5e96748c92fc6fb85183d2b4"
+      _id: '5e96748c92fc6fb85183d2b4'
     });
 
     const cartItem = cart.item.find(element => {
@@ -28,7 +28,7 @@ router.get("/:id/quantity", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   //used to post cart items to the database through postman
   //   const cartItem = new Cart({
   //     item: [
@@ -47,14 +47,16 @@ router.post("/", async (req, res) => {
   //   res.json(cartItem);
 
   //userID: 5e96748c92fc6fb85183d2b4
-  const cart = await Cart.findOne({ _id: "5e96748c92fc6fb85183d2b4" });
+  const cart = await Cart.findOne({ _id: '5e96748c92fc6fb85183d2b4' });
 
   if (cart) {
     const cartItem = cart.item.find(element => {
       return element.cardItemId === req.body.cardItemId;
     });
+
     if (cartItem) {
       cartItem.quantity += req.body.quantity;
+
       cart.save();
       res.sendStatus(200);
     } else {
